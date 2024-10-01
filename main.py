@@ -10,6 +10,7 @@ class Hero:
         self.attack_power = 20
 
     def attack(self, other):
+        print(f"{self.name} атакует {other.name}а")
         other.health = other.health - self.attack_power
         #атакует другого героя (other), отнимая здоровье в размере своей силы удара
 
@@ -27,14 +28,22 @@ class Game:
 
     def start(self):
         print(f"силы {self.player.name}а: {self.player.health}, силы {self.computer.name}а: {self.computer.health}")
-        input("Нажмите Enter для начала игры.")
-        while self.player.is_alive and self.computer.is_alive():
-            self.computer.attack(self.player)
-            print(f"силы {self.player.name}а: {self.player.health}, силы {self.computer.name}а: {self.computer.health}")
-            print(self.player.is_alive())
-            self.player.attack(self.computer)
-            print(f"силы {self.player.name}а: {self.player.health}, силы {self.computer.name}а: {self.computer.health}")
-            print(self.computer.is_alive())
+        input("Нажмайте Enter для продолжения игры.")
+        while True:
+            if self.player.is_alive() == True:
+                self.player.attack(self.computer)
+                print(f"силы {self.player.name}а: {self.player.health}, силы {self.computer.name}а: {self.computer.health}")
+            if self.computer.is_alive() == True:
+                self.computer.attack(self.player)
+                print(f"силы {self.player.name}а: {self.player.health}, силы {self.computer.name}а: {self.computer.health}")
+            if self.player.is_alive() == False:
+                print(f"победил {self.computer.name}")
+                break
+            if self.computer.is_alive() == False:
+                print(f"победил {self.player.name}")
+                break
+            input()
+
 
 #начинает игру, чередует ходы игрока и компьютера, пока один из героев не умрет.
 # Выводит информацию о каждом ходе (кто атаковал и сколько здоровья осталось у противника) и объявляет победителя.
